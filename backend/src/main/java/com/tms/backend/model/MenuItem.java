@@ -1,0 +1,19 @@
+package com.tms.backend.model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.util.UUID;
+
+@Entity
+@Table(name = "")
+@Data
+public class MenuItem {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    UUID menuId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurantId")
+    private RestaurantDetails restaurantDetails;
+}
