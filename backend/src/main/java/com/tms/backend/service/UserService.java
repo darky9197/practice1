@@ -42,7 +42,7 @@ public class UserService {
 
             Users existing = repo.findByEmail(user.getEmail());
 
-            return jwtService.generateToken(existing.getName());
+            return jwtService.generateToken(existing.getUserName());
         }
         return "Fail";
 
