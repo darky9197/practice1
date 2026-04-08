@@ -15,6 +15,7 @@ public class Order {
     private UUID orderId;
 
     private Double totalAmount;
+    private String status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

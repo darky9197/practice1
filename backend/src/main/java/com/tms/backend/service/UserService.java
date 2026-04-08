@@ -16,7 +16,6 @@ public class UserService {
     @Autowired
     private UserRepository repo;
 
-    @Autowired
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
     @Autowired
@@ -24,7 +23,6 @@ public class UserService {
 
     @Autowired
     private JWTService jwtService;
-
 
     public Users register(Users user) {
 
@@ -38,7 +36,7 @@ public class UserService {
 
         Authentication authentication = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword()));
-        if(authentication.isAuthenticated()) {
+        if (authentication.isAuthenticated()) {
 
             Users existing = repo.findByUsername(user.getUserName());
 

@@ -64,6 +64,7 @@ public class OrderService {
         Order order = new Order();
         order.setRestaurantDetails(restaurant);
         order.setUser(user);
+        order.setStatus("PENDING");
 
         double totalAmount = 0.0;
 
@@ -83,5 +84,19 @@ public class OrderService {
         orderRepo.save(order);
 
         return "Order placed successfully";
+    }
+
+    public Order confirmOrder(UUID orderId) {
+        Order order = orderRepo.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+        order.setStatus("CONFIRMED");
+        return orderRepo.save(order);
+    }
+
+    public Order rejectOrder(UUID orderId) {
+        Order order = orderRepo.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+        order.setStatus("REJECTED");
+        return orderRepo.save(order);
     }
 }
