@@ -14,14 +14,14 @@ public class EmailService {
     public void sendEmail(String toEmail, String subject, String body) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom("noreply@tms.com"); 
+            message.setFrom("noreply@tms.com");
             message.setTo(toEmail);
             message.setSubject(subject);
             message.setText(body);
 
             mailSender.send(message);
             System.out.println("Mail Sent Successfully to " + toEmail);
-            
+
         } catch (Exception e) {
             System.err.println("Failed to send email: " + e.getMessage());
         }
