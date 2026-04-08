@@ -13,11 +13,9 @@ public class RestaurantService {
     @Autowired
     private RestaurantRepository repository;
 
-
     public List<RestaurantDetails> getAllRestaurants() {
         return repository.findAll();
     }
-
 
     public List<RestaurantDetails> filterRestaurants(String keyword) {
         if (keyword == null || keyword.trim().isEmpty()) {
