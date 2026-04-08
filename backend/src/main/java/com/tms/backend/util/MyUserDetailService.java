@@ -2,6 +2,7 @@ package com.tms.backend.util;
 
 import com.tms.backend.model.Users;
 import com.tms.backend.repo.UserRepository;
+import org.jspecify.annotations.NullMarked;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
