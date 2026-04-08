@@ -37,10 +37,10 @@ public class UserService {
     public String verify(Users user) {
 
         Authentication authentication = authManager.authenticate(
-                new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+                new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword()));
         if(authentication.isAuthenticated()) {
 
-            Users existing = repo.findByEmail(user.getEmail());
+            Users existing = repo.findByUsername(user.getUserName());
 
             return jwtService.generateToken(existing.getUserName());
         }
