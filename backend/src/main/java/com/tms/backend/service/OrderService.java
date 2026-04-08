@@ -1,9 +1,7 @@
 package com.tms.backend.service;
 
-import com.tms.backend.model.Order;
-import com.tms.backend.model.OrderItem;
-import com.tms.backend.model.RestaurantDetails;
-import com.tms.backend.model.Users;
+import com.tms.backend.model.*;
+import com.tms.backend.repo.MenuRepository;
 import com.tms.backend.repo.OrderRepository;
 import com.tms.backend.repo.RestaurantRepository;
 import com.tms.backend.repo.UserRepository;
@@ -17,14 +15,21 @@ import java.util.List;
 @Service
 public class OrderService {
 
-    @Autowired
+
     private OrderRepository orderRepo;
 
-    @Autowired
     private RestaurantRepository restaurantRepo;
 
-    @Autowired
     private UserRepository userRepo;
+
+    private MenuRepository menuRepo;
+
+    public OrderService(OrderRepository orderRepo, RestaurantRepository restaurantRepo, UserRepository userRepo, MenuRepository menuRepo) {
+        this.orderRepo = orderRepo;
+        this.restaurantRepo = restaurantRepo;
+        this.userRepo = userRepo;
+        this.menuRepo = menuRepo;
+    }
 
     @PostConstruct
     public void initDummyRestaurants() {
@@ -49,9 +54,10 @@ public class OrderService {
     }
 
     public String placeOrder(UUID restaurantId, UUID userId, List<OrderItem> items) {
+
         RestaurantDetails restaurant = restaurantRepo.findById(restaurantId)
                 .orElseThrow(() -> new RuntimeException("Restaurant not found"));
-        
+
         Users user = userRepo.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -60,17 +66,20 @@ public class OrderService {
         order.setUser(user);
 
         double totalAmount = 0.0;
+
         if (items != null) {
             for (OrderItem item : items) {
                 item.setOrder(order);
+
                 if (item.getPriceAtPurchase() != null && item.getQuantity() != null) {
-                    totalAmount += (item.getPriceAtPurchase() * item.getQuantity());
+                    totalAmount += item.getPriceAtPurchase() * item.getQuantity();
                 }
             }
             order.setItems(items);
         }
 
         order.setTotalAmount(totalAmount);
+
         orderRepo.save(order);
 
         return "Order placed successfully";

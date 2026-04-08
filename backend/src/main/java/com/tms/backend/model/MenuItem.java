@@ -11,7 +11,7 @@ import java.util.UUID;
 public class MenuItem {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    UUID menuId;
+    private UUID menuId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurantId")

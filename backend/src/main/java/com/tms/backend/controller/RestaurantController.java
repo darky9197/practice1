@@ -19,7 +19,7 @@ public class RestaurantController {
         return restaurantService.getAllRestaurants();
     }
 
-    @PostMapping("/filtered")
+    @GetMapping("/filtered")
     public List<RestaurantDetails> filterRestaurants(@RequestParam String keyword) {
         return restaurantService.filterRestaurants(keyword);
     }
