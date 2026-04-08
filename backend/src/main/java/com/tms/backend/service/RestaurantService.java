@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RestaurantService {
@@ -14,18 +13,16 @@ public class RestaurantService {
     @Autowired
     private RestaurantRepository repository;
 
-    public String register(RestaurantDetails restaurant) {
-        Optional<RestaurantDetails> existing = repository.findByRestaurantName(restaurant.getRestaurantName());
-
-        if (existing.isPresent()) {
-            return "Restaurant already exists!";
-        }
-
-        repository.save(restaurant);
-        return "Registered successfully";
-    }
 
     public List<RestaurantDetails> getAllRestaurants() {
         return repository.findAll();
+    }
+
+
+    public List<RestaurantDetails> filterRestaurants(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return repository.findAll();
+        }
+        return repository.findByRestaurantNameContainingIgnoreCase(keyword);
     }
 }
