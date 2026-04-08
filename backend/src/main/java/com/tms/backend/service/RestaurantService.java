@@ -25,7 +25,6 @@ public class RestaurantService {
         return "Registered successfully";
     }
 
-    // Returning all restaurants; the frontend will perform the search logic.
     public List<RestaurantDetails> getAllRestaurants() {
         return repository.findAll();
     }
