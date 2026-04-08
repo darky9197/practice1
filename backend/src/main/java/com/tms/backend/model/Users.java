@@ -4,23 +4,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Table(name = "users")
 @Data
 public class Users {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID userId;
-
     private String userName;
     private String email;
     private String password;
 
-    @OneToMany(mappedBy = "users",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<OrderItem> orderList;
-
+    private List<Order> orders = new ArrayList<>();
 }

@@ -14,12 +14,14 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 @Service
 public class JWTService {
 
     private String secretKey = "";
+    private static final Long VALIDITY = TimeUnit.MINUTES.toMillis(120);
 
     public JWTService() {
         try {
@@ -45,7 +47,6 @@ public class JWTService {
     }
 
     private SecretKey getKey() {
-
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
 

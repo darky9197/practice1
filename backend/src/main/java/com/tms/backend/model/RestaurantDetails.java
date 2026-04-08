@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "restaurant_details")
+@Table(name = "restaurants")
 @Data
 public class RestaurantDetails {
     @Id
@@ -17,7 +17,8 @@ public class RestaurantDetails {
     private UUID restaurantId;
     private String restaurantName;
 
-    @OneToMany(mappedBy = "restaurant_details", cascade = CascadeType.ALL, orphanRemoval = true)
+    // Use the variable name "restaurantDetails" from the child classes
+    @OneToMany(mappedBy = "restaurantDetails", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<OrderItem> orderList = new ArrayList<>();
+    private List<MenuItem> menuList = new ArrayList<>();
 }

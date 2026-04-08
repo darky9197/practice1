@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.UUID;
 
 @Entity
-@Table(name = "")
+@Table(name = "menu_item")
 @Data
 public class MenuItem {
     @Id
